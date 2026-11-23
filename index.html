@@ -84,6 +84,7 @@ a{color:inherit}
 .until .yr{font-size:.8em;color:var(--sun);font-weight:700}
 
 .count{margin-top:12px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.count-top{margin-top:4px;margin-bottom:6px;position:relative;z-index:7}
 .count-l{font-size:14px;font-weight:700;color:var(--sun)}
 .tiles{display:flex;gap:7px;direction:rtl}
 .tiles div{min-width:60px;padding:7px 4px 5px;border-radius:12px;background:linear-gradient(180deg,#fff 50%,#f4eadb 50%);color:var(--red-d);box-shadow:0 4px 0 rgba(70,0,10,.45);display:flex;flex-direction:column;align-items:center}
@@ -190,6 +191,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding-block:6px 20p
         <span id="live" style="display:contents">
           <span class="ribbon">عروض مميزة لفترة محدودة</span>
           <span class="head"><span class="l1">خصومات تصل إلى</span><span class="pct">٢٨٪</span></span>
+          <span class="count count-top"><span class="count-l" id="countL">ينتهي العرض بعد</span><span class="tiles" id="tiles"></span></span>
           <span class="pile" aria-hidden="true">
             <img class="i3" src="img/suroor.webp" alt="">
             <img class="i2" src="img/softener.webp" alt="">
@@ -201,7 +203,6 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding-block:6px 20p
             <span class="tag"><small>مدفأة جيباس</small><b class="num">4.990</b><s class="num">6.900</s></span>
           </span>
           <span class="until">العروض مستمرة حتى<span class="date"><b>٣٠ نوفمبر</b><span class="yr">٢٠٢٦</span></span></span>
-          <span class="count"><span class="count-l" id="countL">ينتهي العرض بعد</span><span class="tiles" id="tiles"></span></span>
           <span class="tap">اضغط وتصفّح <span id="nOffers">٢٠</span> عرضاً
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
         </span>
