@@ -268,7 +268,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding-block:6px 20p
   اطلب توصيل<span class="num">91441292</span>
 </a>
 <div class="fab fab-off" id="fabOff" hidden role="status">انتهى استقبال طلبات التوصيل · العروض متاحة في المركز حتى ١١ ليلاً</div>
-<audio id="nasheed" src="nasheed.mp3" loop preload="auto"></audio>
+<audio id="nasheed" src="nasheed-soft.mp3" loop preload="auto"></audio>
 <button class="snd" id="snd" type="button" aria-pressed="true" aria-label="تشغيل أو إيقاف النشيد"><svg class="s-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><svg class="s-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 5L6 9H3v6h3l5 4z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6"/></svg></button>
 <div class="toast" id="toast" hidden role="status"></div>
 </div>
@@ -396,7 +396,7 @@ function loop(){ if(!$('cover').hidden){ ang+=0.0016; rays(); } requestAnimation
 addEventListener('resize',rays);
 
 /* Jawda nasheed: medium volume; browsers only allow sound after the first tap, so it starts on the first touch */
-const au=$('nasheed'), snd=$('snd'); au.volume=0.6; let want=true, started=false;
+const au=$('nasheed'), snd=$('snd'); au.volume=1; let want=true, started=false;
 function playA(){ if(!want) return; au.play().then(()=>{started=true;}).catch(()=>{}); }
 au.play().then(()=>{started=true;}).catch(()=>{});
 ['pointerdown','touchstart','keydown','scroll'].forEach(ev=>addEventListener(ev,()=>{ if(!started) playA(); },{passive:true}));
