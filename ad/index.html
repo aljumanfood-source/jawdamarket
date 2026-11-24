@@ -22,6 +22,10 @@
 .stage.ph{aspect-ratio:2/3;border-radius:12px;background:#fff;border:1px solid var(--line)}
 .stage.ph img{width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;filter:none}
 .stage.ph .off{top:8px;bottom:auto;left:8px;right:auto}
+.snd{position:fixed;z-index:45;top:calc(10px + env(safe-area-inset-top,0px));left:10px;width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);background:rgba(94,4,16,.85);color:var(--gold-l);display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+body.in-shop .snd{top:auto;bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.snd svg{width:22px;height:22px}
+.snd .s-off{display:none}.snd[aria-pressed="false"] .s-on{display:none}.snd[aria-pressed="false"] .s-off{display:block}
 </style>
 <title>عروض الجودة حتى ٣٠ نوفمبر</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -259,6 +263,8 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding-block:6px 20p
   اطلب توصيل<span class="num">91441292</span>
 </a>
 <div class="fab fab-off" id="fabOff" hidden role="status">انتهى استقبال طلبات التوصيل · العروض متاحة في المركز حتى ١١ ليلاً</div>
+<audio id="nasheed" src="../nasheed.mp3" loop preload="auto"></audio>
+<button class="snd" id="snd" type="button" aria-pressed="true" aria-label="تشغيل أو إيقاف النشيد"><svg class="s-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><svg class="s-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 5L6 9H3v6h3l5 4z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6"/></svg></button>
 <div class="toast" id="toast" hidden role="status"></div>
 </div>
 
@@ -371,6 +377,13 @@ function rays(){
 function loop(){ if(!$('cover').hidden){ ang+=0.0016; rays(); } requestAnimationFrame(loop); }
 addEventListener('resize',rays);
 
+/* Jawda nasheed: medium volume; browsers only allow sound after the first tap, so it starts on the first touch */
+const au=$('nasheed'), snd=$('snd'); au.volume=0.6; let want=true, started=false;
+function playA(){ if(!want) return; au.play().then(()=>{started=true;}).catch(()=>{}); }
+au.play().then(()=>{started=true;}).catch(()=>{});
+['pointerdown','touchstart','keydown','scroll'].forEach(ev=>addEventListener(ev,()=>{ if(!started) playA(); },{passive:true}));
+snd.addEventListener('click',e=>{ e.stopPropagation(); want=!want; snd.setAttribute('aria-pressed',String(want)); if(want){ playA(); } else { au.pause(); } });
+document.addEventListener('visibilitychange',()=>{ if(document.hidden) au.pause(); else if(want&&started) au.play().catch(()=>{}); });
 route(); tick(); setInterval(tick,1000);
 if(reduce) rays(); else requestAnimationFrame(loop);
 })();
